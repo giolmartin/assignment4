@@ -242,10 +242,11 @@ public class AccountHolder implements Comparable<AccountHolder>
 		if (openingBalance > 1000) {
 			throw new ExceedsFraudSuspicionLimitException("Can't depoit over 1000");
 		}	else {
+			DepositTransaction d ;
 			
 			CDAccount cdA = new CDAccount(offering, openingBalance);
-			DepositTransaction d = new DepositTransaction(cdA, openingBalance);
-			cdA.addTransaction(d);
+			
+			
 			addCDAccount(cdA);
 			return cdA;
 			
