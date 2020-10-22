@@ -15,6 +15,7 @@ public abstract class BankAccount {
 	private double accountTotal;
 	private Date date;
 	private int term;
+	List<Transaction> transactions;
 	
 	
 	
@@ -105,11 +106,12 @@ public abstract class BankAccount {
 	}
 	
 	public void addTransaction(Transaction transaction) {
+		transactions.add(transaction);
 		
 	}
 	
 	public List<Transaction> getTransactions(){
-		return null;
+		return transactions;
 	}
 	
 	public static BankAccount readFromString()

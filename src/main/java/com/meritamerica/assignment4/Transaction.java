@@ -3,49 +3,67 @@ package com.meritamerica.assignment4;
 import java.util.*;
 
 public abstract class Transaction {
+	
+	BankAccount sourceAccount;
+	BankAccount targetAccount;
+	double amount;
+	Date transactionDate;
+	boolean isProcessed;
+	String rejectionReason;
 
 	public BankAccount getSourceAccount() {
-		return null;
+		return sourceAccount;
 		
 	}
 	public void setSourceAccount(BankAccount sourceAccount) {
-		
+		this.sourceAccount = sourceAccount;
 	}
 	public BankAccount getTargetAccount() {
-		return null;
+		return targetAccount;
 		
 	}
 	public void setTargetAccount(BankAccount targetAccount) {
-		
+		this.targetAccount = targetAccount;
 	}
 	public double getAmount() {
-		return 0;}
+		return amount;
+	}
 	
 	
-	public void setAmount(double amount) {}
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
 	
 	public Date getTransactionDate(){
-		return null;}
+		return transactionDate;
+		}
 	
-	public void setTransactionDate(Date date) {}
+	public void setTransactionDate(Date date) {
+		transactionDate = date;
+	}
 	
 	public String writeToString() {
 		return null;}
 	
 	
-	public static Transaction readFromString(String transactionDataString) {}
-	
-	public abstract void process() throws NegativeAmountException, ExceedsAvailableBalanceException, ExceedsFraudSuspicionLimitException{
-		
+	public static Transaction readFromString(String transactionDataString) {
+		return null;
 	}
 	
-	public boolean isProcessedByFraudTeam() {
-		return false;}
+	public abstract void process() throws NegativeAmountException, ExceedsAvailableBalanceException, ExceedsFraudSuspicionLimitException;
 	
-	public void setProcessedByFraudTeam(boolean isProcessed) {}
+	public boolean isProcessedByFraudTeam() {
+		return isProcessed;}
+	
+	public void setProcessedByFraudTeam(boolean isProcessed) {
+		this.isProcessed = isProcessed;
+	}
 	
 	public String getRejectionReason() {
-		return null;}
+		return rejectionReason;
+		}
 	
-	public void setRejectionReason(String reason) {}
+	public void setRejectionReason(String reason) {
+		rejectionReason = reason;
+	}
 }

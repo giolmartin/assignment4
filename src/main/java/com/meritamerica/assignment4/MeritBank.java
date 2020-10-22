@@ -195,7 +195,18 @@ public class MeritBank{
 	}
 	
 	public static boolean processTransaction(Transaction transaction) throws NegativeAmountException, ExceedsAvailableBalanceException, ExceedsFraudSuspicionLimitException {
-		return false;
+		try {
+			transaction.process();
+			return true;
+		} catch (NegativeAmountException e){
+			
+			throw e;
+		} catch ( ExceedsAvailableBalanceException e) {
+			throw e;
+		} catch (ExceedsFraudSuspicionLimitException e) {
+			throw e;
+		}
+		
 		
 	}
 	

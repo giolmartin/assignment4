@@ -235,15 +235,23 @@ public class AccountHolder implements Comparable<AccountHolder>
 
 	/** -----------------------------------------------CD ACCOUNT------------------------------------------------------*/
 
+	
 	/** Creates a CD Account*/
-	public CDAccount addCDAccount(CDOffering offering, double openingBalance) 
+	public CDAccount addCDAccount(CDOffering offering, double openingBalance) throws ExceedsFraudSuspicionLimitException
 	{
-		CDAccount cdA = new CDAccount(offering, openingBalance);
+		if (openingBalance > 1000) {
+			throw new ExceedsFraudSuspicionLimitException("Can't depoit over 1000");
+		}	else {
+			
+			CDAccount cdA = new CDAccount(offering, openingBalance);
+			DepositTransaction d = new DepositTransaction(cdA, openingBalance);
+			cdA.addTransaction(d);
+			addCDAccount(cdA);
+			return cdA;
+			
+
+		}
 		
-		//---------------------------------------------->Should also add a deposit transaction with opening balance        TODO
-		
-		addCDAccount(this.cdAccount);
-		return this.cdAccount;
 	}
 
 	/** Adds cdAccount into a CDAccounts[]*/
