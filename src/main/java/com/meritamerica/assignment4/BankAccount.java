@@ -67,7 +67,7 @@ public abstract class BankAccount {
 	
 	public boolean deposit(double amount) 
 	{
-		if(((this.balance + amount) <= 250000) && amount > 0)
+		if( amount > 0)
 		{
 			this.balance = this.balance + amount;
 			return true;

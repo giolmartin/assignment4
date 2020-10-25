@@ -342,10 +342,10 @@ public class AccountHolder implements Comparable<AccountHolder>
 		
 		if (otherAccountHolder.combinedBalance < otherAccountHolder.combinedBalance) 
 		{
-			return 1;
+			return -1;
 
 		}else
 
-			return -1;
+			return 1;
 	}
 }

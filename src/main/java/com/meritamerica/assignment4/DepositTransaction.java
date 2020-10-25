@@ -10,7 +10,7 @@ public class DepositTransaction extends Transaction{
 	public void process()
 			throws NegativeAmountException, ExceedsAvailableBalanceException, ExceedsFraudSuspicionLimitException {
 		
-		if(amount < 0) {
+		if(amount < 0 ) {
 			throw new NegativeAmountException("Cant deposit negative amounts");
 		} else if (amount>1000) {
 			throw new ExceedsFraudSuspicionLimitException("Can't deposit more than $1000");

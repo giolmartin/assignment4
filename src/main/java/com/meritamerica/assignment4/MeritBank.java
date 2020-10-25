@@ -84,11 +84,11 @@ public class MeritBank{
 	}
 	
 	
-	public static boolean readFromFile(String fileName)   // --------------------------> Read transactions and the Fraud Queue TODO. Revise Savings, Checkings Exceptions.
+	public static boolean readFromFile(String fileName)  // --------------------------> Read transactions and the Fraud Queue TODO. Revise Savings, Checkings Exceptions.
 	{
 		File file = new File(fileName);
 		ArrayList<String> values = new ArrayList<String>();
-		
+
 		int cdofferingsCounter; 
 		AccountHolder ac;
 		int checkingCounter;
@@ -97,59 +97,89 @@ public class MeritBank{
 		int cdAccountCounter;
 		int index = 0;
 		long accountN;
+
+		int savingsTransactions;
+		int checkingTransactions;
+		int cdAccountTransactions;
+
 		try (BufferedReader bR = new BufferedReader(new FileReader(file)) )
 		{	
 			String line;
-			while((line = bR.readLine()) != null)
+			/*	while((line = bR.readLine()) != null)
 			{	
 				values.add(line);								
 			}
-			accountN = Long.parseLong(values.get(index));
+			 */	
+			/*for(String s : values) {
+				System.out.println(s);
+			}*/
+			accountN = Long.parseLong(bR.readLine());
 			setAccountNumber(accountN);
-			index++;        
-			cdofferingsCounter = Integer.parseInt(values.get(index));
-			index++;
+			System.out.println("Account Number: " + accountN);
+
+			cdofferingsCounter = Integer.parseInt(bR.readLine());
+
+			System.out.println("# Offerings: " + cdofferingsCounter);
 			for(int i = index ; i < cdofferingsCounter + index; i ++) //runs the amount of cd offerings
 			{ 
-				CDOffering.readFromString(values.get(i)); 	
+				CDOffering.readFromString(bR.readLine()); 	
+
 			}
-			index += cdofferingsCounter ;
-			accountHolderCounter = Integer.parseInt(values.get(index));
-			index++;
-			for(int i = index; i < accountHolderCounter + index; i++) 
+
+			accountHolderCounter = Integer.parseInt(bR.readLine());
+			System.out.println("Account Holders Count: " + accountHolderCounter);
+
+			for(int i = 0; i < accountHolderCounter ; i++) 
 			{
-				if (index == values.size())return true; //checks to see if the index is at the end of the array.
-				addAccountHolder(ac = AccountHolder.readFromString(values.get(index)));
-				index++; 
-				checkingCounter = Integer.parseInt(values.get(index));
-				index++;
-				if(checkingCounter != 0)
-				{
-					for (int j = index ; j < checkingCounter + index ; j++) 
-					{	
-						ac.addCheckingAccount(CheckingAccount.readFromString(values.get(j)));
-					}
-				} 
-				index += checkingCounter;
-				savingsCounter = Integer.parseInt(values.get(index));
-				index++;
-				if(savingsCounter != 0)
-				{
-					for(int k = index; k < savingsCounter + index; k++)
+
+				addAccountHolder(ac = AccountHolder.readFromString(bR.readLine()));
+
+				checkingCounter = Integer.parseInt(bR.readLine());
+				System.out.println("Checking Accounts " + checkingCounter);
+
+				for (int j = index ; j < checkingCounter ; j++) 
+				{	
+					ac.addCheckingAccount(CheckingAccount.readFromString(bR.readLine()));
+
+					checkingTransactions = Integer.parseInt(bR.readLine());
+
+					System.out.println("Checking Transaction: " + checkingTransactions);
+					for(int y = 0; y <  checkingTransactions ; y++) 
 					{
-						ac.addSavingsAccount(SavingsAccount.readFromString(values.get(k)));
+						Transaction.readFromString(bR.readLine());
+					}
+
+				}
+
+
+				savingsCounter = Integer.parseInt(bR.readLine());
+				System.out.println("Savings Accounts: " + savingsCounter);
+
+				for(int k = index; k < savingsCounter + index; k++)
+				{
+					ac.addSavingsAccount(SavingsAccount.readFromString(bR.readLine()));
+					savingsTransactions = Integer.parseInt(bR.readLine());
+					System.out.println("Savings Transactions: " + savingsTransactions);
+					for(int z = 0; z < savingsTransactions; z++) {
+						Transaction.readFromString(bR.readLine());
 					}
 				}
-				index += savingsCounter;
-				cdAccountCounter = Integer.parseInt(values.get(index));
-				index++;
-				if(cdAccountCounter != 0)
+
+
+				cdAccountCounter = Integer.parseInt(bR.readLine());
+				System.out.println("CDAccounts: " + cdAccountCounter);
+
+
+				for(int x = 0; x < cdAccountCounter ; x++)
 				{
-					for(int x = index; x < cdAccountCounter + index; x++)
-					{
-						ac.addCDAccount(CDAccount.readFromString(values.get(x)));
+					ac.addCDAccount(CDAccount.readFromString(bR.readLine()));
+					cdAccountTransactions = Integer.parseInt(bR.readLine());
+					System.out.println("CDAccounts Transactions: " + cdAccountTransactions);
+					for(int xx = 0; xx < cdAccountTransactions; xx++) {
+						Transaction.readFromString(bR.readLine());
 					}
 				}
+
 				index += cdAccountCounter;
 			}
 		}catch(NumberFormatException e)
@@ -165,10 +195,13 @@ public class MeritBank{
 		{
 			e.getStackTrace();
 			System.out.println("File not found");
+		} catch (ExceedsCombinedBalanceLimitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return true; 
 	}
-	
+
 	public static boolean writeToFile(String fileName)
 	{
 		return true;
