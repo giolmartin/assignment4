@@ -97,90 +97,61 @@ public class MeritBank{
 		int cdAccountCounter;
 		int index = 0;
 		long accountN;
+		FraudQueue fraud = new FraudQueue();
 
 		int savingsTransactions;
 		int checkingTransactions;
 		int cdAccountTransactions;
+		int fraudQ;
 
 		try (BufferedReader bR = new BufferedReader(new FileReader(file)) )
 		{	
-			String line;
-			/*	while((line = bR.readLine()) != null)
-			{	
-				values.add(line);								
-			}
-			 */	
-			/*for(String s : values) {
-				System.out.println(s);
-			}*/
 			accountN = Long.parseLong(bR.readLine());
 			setAccountNumber(accountN);
-			System.out.println("Account Number: " + accountN);
-
 			cdofferingsCounter = Integer.parseInt(bR.readLine());
-
-			System.out.println("# Offerings: " + cdofferingsCounter);
+			
 			for(int i = index ; i < cdofferingsCounter + index; i ++) //runs the amount of cd offerings
 			{ 
-				CDOffering.readFromString(bR.readLine()); 	
-
+				CDOffering.readFromString(bR.readLine()); 
 			}
-
 			accountHolderCounter = Integer.parseInt(bR.readLine());
-			System.out.println("Account Holders Count: " + accountHolderCounter);
-
 			for(int i = 0; i < accountHolderCounter ; i++) 
 			{
-
 				addAccountHolder(ac = AccountHolder.readFromString(bR.readLine()));
-
 				checkingCounter = Integer.parseInt(bR.readLine());
-				System.out.println("Checking Accounts " + checkingCounter);
-
 				for (int j = index ; j < checkingCounter ; j++) 
 				{	
 					ac.addCheckingAccount(CheckingAccount.readFromString(bR.readLine()));
-
 					checkingTransactions = Integer.parseInt(bR.readLine());
-
-					System.out.println("Checking Transaction: " + checkingTransactions);
 					for(int y = 0; y <  checkingTransactions ; y++) 
 					{
 						Transaction.readFromString(bR.readLine());
 					}
-
 				}
-
-
 				savingsCounter = Integer.parseInt(bR.readLine());
-				System.out.println("Savings Accounts: " + savingsCounter);
-
 				for(int k = index; k < savingsCounter + index; k++)
 				{
 					ac.addSavingsAccount(SavingsAccount.readFromString(bR.readLine()));
 					savingsTransactions = Integer.parseInt(bR.readLine());
-					System.out.println("Savings Transactions: " + savingsTransactions);
 					for(int z = 0; z < savingsTransactions; z++) {
 						Transaction.readFromString(bR.readLine());
 					}
 				}
-
-
 				cdAccountCounter = Integer.parseInt(bR.readLine());
-				System.out.println("CDAccounts: " + cdAccountCounter);
-
-
 				for(int x = 0; x < cdAccountCounter ; x++)
 				{
 					ac.addCDAccount(CDAccount.readFromString(bR.readLine()));
 					cdAccountTransactions = Integer.parseInt(bR.readLine());
 					System.out.println("CDAccounts Transactions: " + cdAccountTransactions);
 					for(int xx = 0; xx < cdAccountTransactions; xx++) {
-						Transaction.readFromString(bR.readLine());
+						System.out.println("test" + bR.readLine());;
 					}
 				}
-
-				index += cdAccountCounter;
+			}
+			fraudQ =Integer.parseInt(bR.readLine());
+			System.out.println("Fraud Queue: " + fraudQ);
+			for(int fQ = 0; fQ < fraudQ; fQ++) {
+				//fraud.addTransaction(bR.readLine()); -------> Read String Transaction 
 			}
 		}catch(NumberFormatException e)
 		{

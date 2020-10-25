@@ -12,7 +12,6 @@ public abstract class BankAccount {
 	private double interestRate;
 	private long accountNumber;
 	private double futureValue;
-	private double accountTotal;
 	private Date date;
 	private int term;
 	List<Transaction> transactions;

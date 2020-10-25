@@ -340,7 +340,7 @@ public class AccountHolder implements Comparable<AccountHolder>
 	{
 		this.combinedBalance = otherAccountHolder.getCombinedBalance();
 		
-		if (otherAccountHolder.combinedBalance < otherAccountHolder.combinedBalance) 
+		if (this.combinedBalance < otherAccountHolder.getCombinedBalance()) 
 		{
 			return -1;
 

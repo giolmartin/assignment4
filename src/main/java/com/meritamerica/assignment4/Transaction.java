@@ -47,6 +47,34 @@ public abstract class Transaction {
 	
 	
 	public static Transaction readFromString(String transactionDataString) {
+		int sourceAccount;
+		int targetAccount;
+		int transactionType;
+		double amount;
+		int counter = 0;
+		Date date;
+		String[] values = transactionDataString.split(",");
+		try {
+			transactionType = Integer.parseInt(values[0]);
+			amount = Double.parseDouble(values[2]);
+			if (transactionType < 0 && amount < 0) {         //Deposit or WithDrawl
+				System.out.println("Withdrawl");
+				amount = (amount * (-1));   // convert number positive
+				
+				//System.out.println("Deposit or Withrawl");
+			} else  if (transactionType < 0 && amount >= 0){                           //Transfer
+				
+				System.out.println("Deposit");
+				
+				
+			} else {
+				System.out.println("Transfer");
+			}
+			
+		} catch(NumberFormatException e) {
+			throw e;
+		}
+		
 		return null;
 	}
 	
