@@ -77,7 +77,11 @@ public abstract class BankAccount {
 	
 	public double futureValue(int term) 
 	{
-		this.futureValue = this.balance * Math.pow((1+ interestRate ), term);
+		double iR = (interestRate + 1);
+		for (int i = 0; (i < term - 1); i++) {
+			iR = iR * (interestRate + 1 );
+		}
+		this.futureValue  = balance * iR;
 		return this.futureValue;
 	}
 

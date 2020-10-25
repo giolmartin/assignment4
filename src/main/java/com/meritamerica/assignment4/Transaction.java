@@ -45,8 +45,9 @@ public abstract class Transaction {
 	public String writeToString() {
 		return null;}
 	
+	//need Help understanding how to actually implement this, the logic for the transaction type is spot on. 
 	
-	public static Transaction readFromString(String transactionDataString) {
+	public static Transaction readFromString(String transactionDataString) { 
 		int sourceAccount;
 		int targetAccount;
 		int transactionType;

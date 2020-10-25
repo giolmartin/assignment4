@@ -20,5 +20,10 @@ public class FraudQueue {
 		return null;
 		
 	}
+	
+	public Transaction readFromString(String fraudQueueData) {
+		
+		return null;
+	}
 }
 

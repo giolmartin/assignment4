@@ -39,8 +39,6 @@ public class MeritBank{
 	
 	public static CDOffering[] getCDOfferings() 
 	{
-		
-		
 		return  cdOfferings;	
 	}
 	
@@ -84,7 +82,14 @@ public class MeritBank{
 	}
 	
 	
-	public static boolean readFromFile(String fileName)  // --------------------------> Read transactions and the Fraud Queue TODO. Revise Savings, Checkings Exceptions.
+	/**
+	 * *Reads the file Line per line in a recursive manner and sends the Strings extracted to their corresponding 
+	 * methods to be processed. Catches all the exceptions if failed to convert, or if they data was corrupted. 
+	 * 
+	 * @param fileName
+	 * @return true if file was read successfully. 
+	 */
+	public static boolean readFromFile(String fileName)  
 	{
 		File file = new File(fileName);
 		ArrayList<String> values = new ArrayList<String>();
@@ -151,7 +156,7 @@ public class MeritBank{
 			fraudQ =Integer.parseInt(bR.readLine());
 			System.out.println("Fraud Queue: " + fraudQ);
 			for(int fQ = 0; fQ < fraudQ; fQ++) {
-				//fraud.addTransaction(bR.readLine()); -------> Read String Transaction 
+				fraud.readFromString(bR.readLine()); 
 			}
 		}catch(NumberFormatException e)
 		{

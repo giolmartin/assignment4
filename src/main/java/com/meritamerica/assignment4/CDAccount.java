@@ -23,13 +23,13 @@ public class CDAccount extends BankAccount {
 	CDAccount(long accountNumber, double balance, double interestRate, Date date, int term){
 		super(accountNumber, balance, interestRate, date);
 	}
-	CDAccount(CDOffering offering, double balance){
+	CDAccount(CDOffering offering, double openingBalance){
 		super(MeritBank.getNextAccountNumber(),balance,offering.getInterestRate());
 		
 		this.offering = offering;
-		this.term= this.offering.getTerm();
-		this.interestRate = this.offering.getInterestRate();
-		this.balance = balance;
+		term = this.offering.getTerm();
+		interestRate = this.offering.getInterestRate();
+		balance = openingBalance;
 	}
 	
 	//Need to override deposit and withdraw.
@@ -48,17 +48,7 @@ public class CDAccount extends BankAccount {
 		} catch (NumberFormatException e) {
 			throw e;
 		}
-		
-		//CDOffering offering = new CDOffering();
 		cd = new CDAccount(accountNumber, balance, interestRate, date, term);
-		
-		/*
-		System.out.println("Account: " + accountNumber + "\n" +
-				"Balance: " + balance + "\n" + 
-				"Interest Rate: " + interestRate + "\n" + 
-				"Date: " + date + "\n" + 
-				"Term: " + term);
-		*/
 		return cd;
 	}
 	
@@ -76,7 +66,11 @@ public class CDAccount extends BankAccount {
 	}
 	
 	public double futureValue() { //overriding term because could not figure out how to pass the term from offering to my variables in bankAccount
-		double fV  = balance * Math.pow((1+ interestRate ), term);
+		double iR = (interestRate + 1);
+		for (int i = 0; (i < term - 1); i++) {
+			iR = iR * (interestRate + 1 );
+		}
+		double fV  = balance * iR;
 		return fV;
 	}
 	@Override
